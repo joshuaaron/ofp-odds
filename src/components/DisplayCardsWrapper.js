@@ -5,42 +5,52 @@ import { outsData } from '../data/outsData';
 function DisplayCardsWrapper({ usersOuts }) {
 	const [ SINGLE_EVENT_OUTS, DOUBLE_EVENT_OUTS ] = outsData();
 
-	const singleEventPercentages = retrieveOuts(SINGLE_EVENT_OUTS);
-	const doubleEventPercentages = retrieveOuts(DOUBLE_EVENT_OUTS);
+	const {
+		initial: singleInitial,
+		firstPull: singleFirst,
+		secondPull: singleSecond,
+		thirdPull: singleThird,
+	} = retrieveOuts(SINGLE_EVENT_OUTS, usersOuts);
 
-	const outs = 4;
+	const {
+		initial: doubleInitial,
+		firstPull: doubleFirst,
+		secondPull: doubleSecond,
+		thirdPull: doubleThird,
+	} = retrieveOuts(DOUBLE_EVENT_OUTS, usersOuts);
+
 	return (
-		<>
-			<div className="outs-wrapper outs-wrapper--single">
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-			</div>
-			<div className="outs-wrapper outs-wrapper--double">
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-				<DisplayCard outs={outs} />
-			</div>
-		</>
+		<div className="outs-wrapper">
+			<DisplayCard cardsRemaining={12} singleEvent={singleInitial} doubleEvent={doubleInitial} title={'Initial Draw'} />
+			<DisplayCard cardsRemaining={9} singleEvent={singleFirst} doubleEvent={doubleFirst} title={'First Pull'} />
+			<DisplayCard cardsRemaining={6} singleEvent={singleSecond} doubleEvent={doubleSecond} title={'Second Pull'} />
+			<DisplayCard cardsRemaining={3} singleEvent={singleThird} doubleEvent={doubleThird} title={'Third Pull'} />
+		</div>
 	);
 }
 
-function retrieveOuts(data, userOuts = '7') {
+function retrieveOuts(data, userOuts) {
 	return data.reduce((acc, val) => {
-		let returnedObj = {};
-		// key here is DRAW_TYPE (initial, first)
-		Object.keys(val).forEach(key => {
-			const positionObj = val[key]; // OOP/IP for each draw type
-			Object.keys(positionObj).forEach(pos => {
-				const position = positionObj[pos];
-				console.log('Key:', key, 'Position: ', pos, {position});
-				const usersPercentage = position[userOuts]
-				console.log({usersPercentage})
-			})
-		})
-	}, [])
+		Object.keys(val).forEach(street => {
+			const byPositionData = val[street];
+
+			// Create each streets obj.
+			if (!acc[street]) {
+				acc[street] = {};
+			}
+
+			Object.keys(byPositionData).forEach(positionType => {
+				const positions = byPositionData[positionType];
+				const usersPercentage = positions[userOuts];
+
+				// Create each positions per street and fill it.
+				if (!acc[street][positionType]) {
+					acc[street][positionType] = usersPercentage;
+				}
+			});
+		});
+		return acc;
+	}, {});
 }
 
 export { DisplayCardsWrapper };

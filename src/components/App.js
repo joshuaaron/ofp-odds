@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { Header } from './Header';
 import { DisplayCardsWrapper } from './DisplayCardsWrapper';
-
+import { InputField } from './InputField';
 import '../styles/App.scss';
 
-const initialState = { outs: null };
+const initialState = { usersOuts: '' };
 class App extends Component {
   state = initialState;
+
+  handleInputChange = event => {
+    this.setState({ usersOuts: event.target.value });
+  }
+
   render() {
+    const { usersOuts } = this.state;
     return (
-      <div className="App">
+      <div className="app-container">
         <Header />
-        <hr />
-        <DisplayCardsWrapper usersOuts={5} />
+        <InputField outs={usersOuts} onChange={this.handleInputChange} />
+        <DisplayCardsWrapper usersOuts={usersOuts} />
       </div>
     );
   }

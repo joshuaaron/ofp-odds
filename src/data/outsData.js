@@ -1,11 +1,11 @@
 const outsData = () => {
-	const FIRST_FIVE = 'INITIAL';
-	const FIRST_PULL = 'FIRST_PULL';
-	const SECOND_PULL = 'SECOND_PULL';
-	const THIRD_PULL = 'THIRD_PULL';
+	const FIRST_FIVE = 'initial';
+	const FIRST_PULL = 'firstPull';
+	const SECOND_PULL = 'secondPull';
+	const THIRD_PULL = 'thirdPull';
 
-	const OUT_OF_POS = 'OUT_OF_POS';
-	const IN_POS = 'IN_POS';
+	const OUT_OF_POS = 'outOfPos';
+	const IN_POS = 'inPos';
 
 	const SINGLE_EVENT_OUTS = [
 		{
