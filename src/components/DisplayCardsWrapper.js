@@ -1,6 +1,13 @@
 import React from 'react';
 import { DisplayCard } from "./DisplayCard";
 import { outsData } from '../data/outsData';
+import styled from 'react-emotion';
+
+const OutsWrapper = styled('div')({
+	display: 'grid',
+	gridGap: `15px`,
+	gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+})
 
 function DisplayCardsWrapper({ usersOuts }) {
 	const [ SINGLE_EVENT_OUTS, DOUBLE_EVENT_OUTS ] = outsData();
@@ -20,12 +27,12 @@ function DisplayCardsWrapper({ usersOuts }) {
 	} = retrieveOuts(DOUBLE_EVENT_OUTS, usersOuts);
 
 	return (
-		<div className="outs-wrapper">
+		<OutsWrapper>
 			<DisplayCard cardsRemaining={12} singleEvent={singleInitial} doubleEvent={doubleInitial} title={'Initial Draw'} />
 			<DisplayCard cardsRemaining={9} singleEvent={singleFirst} doubleEvent={doubleFirst} title={'First Pull'} />
 			<DisplayCard cardsRemaining={6} singleEvent={singleSecond} doubleEvent={doubleSecond} title={'Second Pull'} />
 			<DisplayCard cardsRemaining={3} singleEvent={singleThird} doubleEvent={doubleThird} title={'Third Pull'} />
-		</div>
+		</OutsWrapper>
 	);
 }
 

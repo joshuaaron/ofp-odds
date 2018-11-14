@@ -2,26 +2,30 @@ import React, { Component } from 'react';
 import { Header } from './Header';
 import { DisplayCardsWrapper } from './DisplayCardsWrapper';
 import { InputField } from './InputField';
-import '../styles/App.scss';
+import styled from 'react-emotion'
+
+const Container = styled('div')({
+	maxWidth: '840px', margin: '0 auto', padding: '15px 30px'
+});
 
 const initialState = { usersOuts: '' };
 class App extends Component {
-  state = initialState;
+	state = initialState;
 
-  handleInputChange = event => {
-    this.setState({ usersOuts: event.target.value });
-  }
+	handleInputChange = ({target}) => {
+		this.setState({ usersOuts: target.value });
+	}
 
-  render() {
-    const { usersOuts } = this.state;
-    return (
-      <div className="app-container">
-        <Header />
-        <InputField outs={usersOuts} onChange={this.handleInputChange} />
-        <DisplayCardsWrapper usersOuts={usersOuts} />
-      </div>
-    );
-  }
+	render() {
+		const { usersOuts } = this.state;
+		return (
+			<Container>
+				<Header />
+				<InputField outs={usersOuts} onChange={this.handleInputChange} />
+				<DisplayCardsWrapper usersOuts={usersOuts} />
+			</Container>
+		);
+	}
 }
 
-export default App;
+export { App };
