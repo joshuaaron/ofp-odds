@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header } from './Header';
 import { DisplayCardsWrapper } from './DisplayCardsWrapper';
 import { InputField } from './InputField';
+import { DescriptionBox } from './DescriptionBox';
 import styled from 'react-emotion'
 
 const Container = styled('div')({
@@ -23,6 +24,7 @@ class App extends Component {
 				<Header />
 				<InputField outs={usersOuts} onChange={this.handleInputChange} />
 				<DisplayCardsWrapper usersOuts={usersOuts} />
+				<DescriptionBox />
 			</Container>
 		);
 	}
